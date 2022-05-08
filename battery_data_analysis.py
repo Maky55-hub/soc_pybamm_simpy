@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[56]:
+# In[3]:
 
 
 ####################Implementing the Kalman Filter Method####################################
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 pybamm.set_logging_level('INFO')
 
 
-# In[57]:
+# In[7]:
 
 
 # Reverses the order of a list
@@ -108,7 +108,7 @@ def printFittingResults(chiSquaredResults, xValues, yValues):
         print("\tx^" + str(order - i) +":", coefficientList[i])
 
 
-# In[62]:
+# In[8]:
 
 
 class BatteryPolynomialFit:
@@ -123,6 +123,7 @@ class BatteryPolynomialFit:
         self._modeled_values = None
         self._coefficients_list = None
         self._main_solution = None
+        self._last_solution = None
     
         self.calculate_coefficients()
     
@@ -143,6 +144,8 @@ class BatteryPolynomialFit:
         self._main_solution = simulation.solve()
         sol = self._main_solution
         
+        # Set last solution to the last step in the experiment
+        self._last_solution = self._main_solution.cycles[0].steps[4]
         
         # Get the discharge step
         discharge_step = sol.cycles[0].steps[3]
@@ -195,7 +198,7 @@ class BatteryPolynomialFit:
         
     @property
     def last_solution(self):
-        return self._main_solution.cycles[0].steps[4]
+        return self._last_solution
     
     @property
     def coefficients_list(self):
