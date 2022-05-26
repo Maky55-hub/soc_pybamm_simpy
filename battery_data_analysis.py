@@ -129,7 +129,7 @@ class BatteryPolynomialFit:
     
     def calculate_coefficients(self):
         experiment = pybamm.Experiment([(
-            f'Discharge at 0.2 C until {self.Vmin} V',
+            f'Discharge at C/20 until {self.Vmin} V',
             'Rest for 4 hours',
             f'Charge at 0.2 C until {self.Vmax} V',
             f'Discharge at C/20 until {self.Vmin} V',
